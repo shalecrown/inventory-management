@@ -13,6 +13,7 @@ import {
   Signal,
 } from "lucide-react";
 
+// Static links array
 const links = [
   { href: "/admin-panel/home", label: "Home", icon: House },
   { href: "/admin-panel/inventory", label: "Inventory", icon: BaggageClaim },
@@ -22,6 +23,22 @@ const links = [
   { href: "/admin-panel/reports", label: "Reports", icon: Signal },
   { href: "/admin-panel/documents", label: "Documents", icon: Folder },
 ];
+
+// SidebarLink component for individual link rendering
+const SidebarLink = ({ href, label, icon: Icon, isActive }) => {
+  return (
+    <Link
+      href={href}
+      className={`${
+        isActive ? "bg-blue-600" : ""
+      } flex items-center gap-2 rounded-md px-2 py-2`}
+      aria-current={isActive ? "page" : undefined}
+    >
+      <Icon className="w-4 h-4" />
+      {label}
+    </Link>
+  );
+};
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -33,20 +50,16 @@ export default function Sidebar() {
         <span className="font-semibold text-2xl">IMS</span>
       </div>
       <div className="p-2">
-        {links.map(({ href, label, icon: Icon }) => {
+        {links.map(({ href, label, icon }, index) => {
           const isActive = pathname === href;
-
           return (
-            <Link
-              key={label}
+            <SidebarLink
+              key={index}
               href={href}
-              className={`${
-                isActive ? "bg-blue-600" : ""
-              } flex items-center gap-2 rounded-md px-2 py-2`}
-            >
-              <Icon className="w-4 h-4" />
-              {label}
-            </Link>
+              label={label}
+              icon={icon}
+              isActive={isActive}
+            />
           );
         })}
       </div>

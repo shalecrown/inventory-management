@@ -4,7 +4,6 @@ import {
   History,
   Plus,
   Settings,
-  User2,
   Users2,
 } from "lucide-react";
 import React from "react";
